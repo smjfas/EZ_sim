@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by ali on 6/25/18.
  */
@@ -7,21 +9,30 @@ public class PSServer extends Server {
     }
 
     @Override
-    int doWork(double time) {
+    ArrayList<Work> doWork(double time) {
+        ArrayList<Work> done = new ArrayList<>();
+        if (workList.size() <= 0){
+            return done;
+        }
         double reduceAmount = time / workList.size();
         double remainingTime;
-        int numOfDone = 0;
+        Work temp;
+
         for (Work aWorkList : workList) {
             remainingTime = aWorkList.getTime() - reduceAmount;
             aWorkList.setTime(remainingTime);
         }
+
         for (int i = workList.size() - 1; i >=0 ; i--) {
             if (workList.get(i).getTime() <= 0.0){
-                workList.remove(i);
-                numOfDone ++;
+                temp = workList.remove(i);
+                done.add(temp);
             }
         }
-        return numOfDone;
+
+        workCompleted += done.size();
+
+        return done;
     }
 
     @Override

@@ -15,7 +15,7 @@ public abstract class Server {
         this.capacity = capacity;
     }
 
-    abstract int doWork(double time);
+    abstract ArrayList<Work> doWork(double time);
 
     public int getMu() {
         return mu;

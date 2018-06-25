@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by ali on 6/25/18.
  */
@@ -8,16 +10,26 @@ public class SRJFServer extends Server {
     }
 
     @Override
-    int doWork(double time) {
-        int numOfDone = 0;
+    ArrayList<Work> doWork(double time) {
+        ArrayList<Work> done = new ArrayList<>();
+        if (workList.size() <= 0){
+            return done;
+        }
+        Work temp;
         double remainingTime = workList.get(0).getTime() - time;
+
         while (remainingTime < 0.0){
-            workList.remove(0);
-            numOfDone++;
+            temp = workList.remove(0);
+            done.add(temp);
+            if (workList.size() <= 0){
+                return done;
+            }
             remainingTime += workList.get(0).getTime();
         }
+
         workList.get(0).setTime(remainingTime);
-        return numOfDone;
+        workCompleted += done.size();
+        return done;
     }
 
     @Override
