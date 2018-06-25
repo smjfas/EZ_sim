@@ -4,7 +4,7 @@
 public class Work {
     private double time;
 
-    public Work(int time) {
+    public Work(double time) {
         this.time = time;
     }
 
