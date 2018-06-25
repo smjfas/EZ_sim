@@ -16,7 +16,7 @@ public class SRJFServer extends Server {
             return done;
         }
         Work temp;
-        double remainingTime = workList.get(0).getTime() - time;
+        double remainingTime = workList.get(0).getLength() - time;
 
         while (remainingTime < 0.0){
             temp = workList.remove(0);
@@ -24,10 +24,10 @@ public class SRJFServer extends Server {
             if (workList.size() <= 0){
                 return done;
             }
-            remainingTime += workList.get(0).getTime();
+            remainingTime += workList.get(0).getLength();
         }
 
-        workList.get(0).setTime(remainingTime);
+        workList.get(0).setLength(remainingTime);
         workCompleted += done.size();
         return done;
     }
@@ -39,7 +39,7 @@ public class SRJFServer extends Server {
         } else {
             for (int i = 0; i < workList.size(); i++) {
                 // Keep the tasks sorted
-                if (workList.get(i).getTime() >= work.getTime()){
+                if (workList.get(i).getLength() >= work.getLength()){
                     workList.add(i, work);
                     return true;
                 }
@@ -54,8 +54,8 @@ public class SRJFServer extends Server {
     public double getFirstDoneTime(){
         double answer = Double.MAX_VALUE;
         for (int i = 0; i < workList.size(); i++) {
-            if (workList.get(i).getTime() < answer){
-                answer = workList.get(i).getTime();
+            if (workList.get(i).getLength() < answer){
+                answer = workList.get(i).getLength();
             }
         }
         return answer;
