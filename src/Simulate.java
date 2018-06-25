@@ -27,20 +27,20 @@ public class Simulate {
             //WARMUP PHASE
             while (mainProcessServer.getWorkCompleted()<SECONDPHASETHRESHOLD){
                 //Calculate timeStep
-                double timeStep = Math.min(Math.min(preProcess1AddTime, preProcess2AddTime), Math.min(preProcessServer1.getFirstDoneTime(), preProcess2AddTime.getFirstDoneTime()));
+                double timeStep = Math.min(Math.min(preProcess1AddTime, preProcess2AddTime), Math.min(preProcessServer1.getFirstDoneTime(), preProcessServer2.getFirstDoneTime()));
 
                 //Do work
-                boolean isFinished1 = preProcessServer1.doWork(timeStep);
-                boolean isFinished2 = preProcessServer2.doWork(timeStep);
+                int isFinished1 = preProcessServer1.doWork(timeStep);
+                int isFinished2 = preProcessServer2.doWork(timeStep);
                 mainProcessServer.doWork(timeStep);
 
                 //Pass timeStep
                 preProcess1AddTime -= timeStep;
                 preProcess2AddTime -= timeStep;
                 //-- Add to Main Server
-                if(isFinished1)
+                while(isFinished1-- != 0)
                     mainProcessServer.addWork(new Work(exponentialRandomGenerator(MU3)));
-                if(isFinished2)
+                while(isFinished2-- != 0)
                     mainProcessServer.addWork(new Work(exponentialRandomGenerator(MU3)));
                 //-- Add to Pre Process Server
                 if(preProcess1AddTime<=0){
