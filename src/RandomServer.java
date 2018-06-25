@@ -5,15 +5,14 @@ public class RandomServer extends Server {
     public RandomServer(int mu, int capacity) {
         super(mu, capacity);
     }
-    @Override
-    int doWork() {
-        //TODO
-        return 0;
-    }
 
     @Override
-    public boolean addWork(Work work) {
-        return false;
+    int doWork(double time) {
+        return 0;
+    }
+    @Override
+    public double getFirstDoneTime(){
+        return workList.get(0).getTime();
     }
 
 }

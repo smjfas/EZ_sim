@@ -37,4 +37,15 @@ public class SRJFServer extends Server {
             return true;
         }
     }
+
+    @Override
+    public double getFirstDoneTime(){
+        double answer = Double.MAX_VALUE;
+        for (int i = 0; i < workList.size(); i++) {
+            if (workList.get(i).getTime() < answer){
+                answer = workList.get(i).getTime();
+            }
+        }
+        return answer;
+    }
 }
