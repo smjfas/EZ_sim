@@ -2,17 +2,17 @@
  * Created by ali on 6/25/18.
  */
 public class Work {
-    private double Length;
+    private double length;
 
     public Work(double Length) {
-        this.Length = Length;
+        this.length = Length;
     }
 
     public double getLength() {
-        return Length;
+        return length;
     }
 
     public void setLength(double length) {
-        this.Length = length;
+        this.length = length;
     }
 }
