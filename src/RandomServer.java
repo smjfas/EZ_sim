@@ -11,6 +11,7 @@ public class RandomServer extends Server {
 
     @Override
     ArrayList<Work> doWork(double time) {
+        addIntegral(time);
         ArrayList<Work> done = new ArrayList<>();
         if (workList.size() <= 0){
             return done;

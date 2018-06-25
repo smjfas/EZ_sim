@@ -9,6 +9,12 @@ public abstract class Server {
     int capacity;
     int workCount = 0;
     int workCompleted= 0;
+    double integral;
+
+
+    public double getIntegral() {
+        return integral;
+    }
 
     Server(int mu, int capacity) {
         this.mu = mu;
@@ -19,6 +25,10 @@ public abstract class Server {
 
     public int getMu() {
         return mu;
+    }
+
+    void addIntegral(double time){
+        integral += time * workList.size();
     }
 
     public boolean addWork(Work work){
