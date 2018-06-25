@@ -19,12 +19,12 @@ public class PSServer extends Server {
         Work temp;
 
         for (Work aWorkList : workList) {
-            remainingTime = aWorkList.getTime() - reduceAmount;
-            aWorkList.setTime(remainingTime);
+            remainingTime = aWorkList.getLength() - reduceAmount;
+            aWorkList.setLength(remainingTime);
         }
 
         for (int i = workList.size() - 1; i >=0 ; i--) {
-            if (workList.get(i).getTime() <= 0.0){
+            if (workList.get(i).getLength() <= 0.0){
                 temp = workList.remove(i);
                 done.add(temp);
             }
@@ -39,8 +39,8 @@ public class PSServer extends Server {
     public double getFirstDoneTime(){
         double answer = Double.MAX_VALUE;
         for (int i = 0; i < workList.size(); i++) {
-            if (workList.get(i).getTime() < answer){
-                answer = workList.get(i).getTime();
+            if (workList.get(i).getLength() < answer){
+                answer = workList.get(i).getLength();
             }
         }
         return answer * workList.size();

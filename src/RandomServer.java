@@ -16,7 +16,7 @@ public class RandomServer extends Server {
             return done;
         }
         Work temp;
-        double remainingTime = workList.get(0).getTime() - time;
+        double remainingTime = workList.get(0).getLength() - time;
         while (remainingTime <= 0.0){
             temp = workList.remove(0);
             done.add(temp);
@@ -24,15 +24,15 @@ public class RandomServer extends Server {
             if (workList.size() <= 0){
                 return done;
             }
-            remainingTime += workList.get(0).getTime();
+            remainingTime += workList.get(0).getLength();
         }
-        workList.get(0).setTime(remainingTime);
+        workList.get(0).setLength(remainingTime);
         workCompleted += done.size();
         return done;
     }
     @Override
     public double getFirstDoneTime(){
-        return workList.get(0).getTime();
+        return workList.get(0).getLength();
     }
 
 }
