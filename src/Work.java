@@ -2,17 +2,17 @@
  * Created by ali on 6/25/18.
  */
 public class Work {
-    private int time;
+    private double time;
 
-    public Work(int time) {
+    public Work(double time) {
         this.time = time;
     }
 
-    public int getTime() {
+    public double getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(double time) {
         this.time = time;
     }
 }
