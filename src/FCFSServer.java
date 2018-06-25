@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by ali on 6/25/18.
  */
@@ -7,12 +9,17 @@ public class FCFSServer extends Server {
     }
 
     @Override
-    int doWork() {
-        return 0;
+    ArrayList<Work> doWork(double time) {
+        return null;
     }
 
     @Override
     public boolean addWork(Work work) {
         return false;
+    }
+
+    @Override
+    public double getFirstDoneTime() {
+        return 0;
     }
 }

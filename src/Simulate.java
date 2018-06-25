@@ -21,15 +21,23 @@ public class Simulate {
 
     private void simulate(int k3){
         for (int R = 1; R < MAXITERATION; R++) {
-            double time = 0;
+            double time = 0, mainStart = 0;
             double TTotalSum = 0;
             double preProcess1AddTime = exponentialRandomGenerator(LAMBDA1);
             double preProcess2AddTime = exponentialRandomGenerator(LAMBDA2);
+            boolean isWarmup = true;
             Server preProcessServer1 = new SRJFServer(MU1, K1);
             Server preProcessServer2 = new RandomServer(MU2, K2);
             Server mainProcessServer = new PSServer(MU3, k3);
             //WARMUP PHASE
             while (mainProcessServer.getWorkCompleted()<SECONDPHASETHRESHOLD){
+                if(isWarmup && mainProcessServer.getWorkCompleted() > FIRSTPHASETHRESHOLD){
+                    isWarmup = false;
+                    mainStart = time;
+                    preProcessServer1.resetStatistics();
+                    preProcessServer2.resetStatistics();
+                    mainProcessServer.resetStatistics();
+                }
                 //Calculate timeStep
                 double timeStep = Math.min(Math.min(preProcess1AddTime, preProcess2AddTime), Math.min(preProcessServer1.getFirstDoneTime(), preProcessServer2.getFirstDoneTime()));
 
@@ -66,6 +74,7 @@ public class Simulate {
                     TTotalSum += time - work.getStartTime();
                 }
             }
+            time -= mainStart;
             double PB1 = preProcessServer1.getWorkCompleted() / (double) preProcessServer2.getWorkCount();
             double LQ1 = preProcessServer1.getIntegral() / time;
             double WQ1 = preProcessServer1.getIntegral() / (double) preProcessServer1.getWorkCompleted();

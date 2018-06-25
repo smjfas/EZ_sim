@@ -54,4 +54,10 @@ public abstract class Server {
     public int getWorkCompleted() {
         return workCompleted;
     }
+
+    public void resetStatistics(){
+        workCount = 0;
+        workCompleted = 0;
+        integral = 0.0;
+    }
 }
