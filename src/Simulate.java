@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Simulate {
     public static final int LAMBDA1 = 7;
     public static final int LAMBDA2 = 2;
@@ -19,6 +21,8 @@ public class Simulate {
 
     private void simulate(int k3){
         for (int R = 1; R < MAXITERATION; R++) {
+            double time = 0;
+            double TTotalSum = 0;
             double preProcess1AddTime = exponentialRandomGenerator(LAMBDA1);
             double preProcess2AddTime = exponentialRandomGenerator(LAMBDA2);
             Server preProcessServer1 = new SRJFServer(MU1, K1);
@@ -30,28 +34,39 @@ public class Simulate {
                 double timeStep = Math.min(Math.min(preProcess1AddTime, preProcess2AddTime), Math.min(preProcessServer1.getFirstDoneTime(), preProcessServer2.getFirstDoneTime()));
 
                 //Do work
-                int isFinished1 = preProcessServer1.doWork(timeStep);
-                int isFinished2 = preProcessServer2.doWork(timeStep);
-                mainProcessServer.doWork(timeStep);
+                ArrayList<Work> finished1 = preProcessServer1.doWork(timeStep);
+                ArrayList<Work> finished2 = preProcessServer2.doWork(timeStep);
+                ArrayList<Work> finished = mainProcessServer.doWork(timeStep);
+                time += timeStep;
 
                 //Pass timeStep
                 preProcess1AddTime -= timeStep;
                 preProcess2AddTime -= timeStep;
                 //-- Add to Main Server
-                while(isFinished1-- != 0)
-                    mainProcessServer.addWork(new Work(exponentialRandomGenerator(MU3)));
-                while(isFinished2-- != 0)
-                    mainProcessServer.addWork(new Work(exponentialRandomGenerator(MU3)));
+                for (Work work : finished1) {
+                    work.setLength(exponentialRandomGenerator(MU3));
+                    mainProcessServer.addWork(work);
+                }
+                for (Work work : finished2) {
+                    work.setLength(exponentialRandomGenerator(MU3));
+                    mainProcessServer.addWork(work);
+                }
                 //-- Add to Pre Process Server
                 if(preProcess1AddTime<=0){
-                    preProcessServer1.addWork(new Work(exponentialRandomGenerator(MU1)));
+                    preProcessServer1.addWork(new Work(exponentialRandomGenerator(MU1), time));
                     preProcess1AddTime += exponentialRandomGenerator(LAMBDA1);
                 }
                 if(preProcess2AddTime<=0){
-                    preProcessServer1.addWork(new Work(exponentialRandomGenerator(MU2)));
+                    preProcessServer1.addWork(new Work(exponentialRandomGenerator(MU2), time));
                     preProcess2AddTime += exponentialRandomGenerator(LAMBDA2);
                 }
+
+                // Calculate statistics
+                for(Work work : finished){
+                    TTotalSum += time - work.getStartTime();
+                }
             }
+            double PB1 = preProcessServer1.getWorkCompleted() / (double) preProcessServer2.getWorkCount();
         }
     }
 
