@@ -2,7 +2,7 @@
  * Created by ali on 6/25/18.
  */
 public class Work {
-    int time;
+    private int time;
 
     public Work(int time) {
         this.time = time;
