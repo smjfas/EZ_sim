@@ -25,10 +25,31 @@ public class Simulate {
             Server preProcessServer2 = new RandomServer(MU2, K2);
             Server mainProcessServer = new PSServer(MU3, k3);
             //WARMUP PHASE
-            while (mainProcessServer.getWorkCompleted()<FIRSTPHASETHRESHOLD){
+            while (mainProcessServer.getWorkCompleted()<SECONDPHASETHRESHOLD){
+                //Calculate timeStep
+                double timeStep = Math.min(Math.min(preProcess1AddTime, preProcess2AddTime), Math.min(preProcessServer1.getFirstDoneTime(), preProcessServer2.getFirstDoneTime()));
+
+                //Do work
+                int isFinished1 = preProcessServer1.doWork(timeStep);
+                int isFinished2 = preProcessServer2.doWork(timeStep);
+                mainProcessServer.doWork(timeStep);
+
+                //Pass timeStep
+                preProcess1AddTime -= timeStep;
+                preProcess2AddTime -= timeStep;
+                //-- Add to Main Server
+                while(isFinished1-- != 0)
+                    mainProcessServer.addWork(new Work(exponentialRandomGenerator(MU3)));
+                while(isFinished2-- != 0)
+                    mainProcessServer.addWork(new Work(exponentialRandomGenerator(MU3)));
+                //-- Add to Pre Process Server
                 if(preProcess1AddTime<=0){
                     preProcessServer1.addWork(new Work(exponentialRandomGenerator(MU1)));
-                    preProcess1AddTime += exponentialRandomGenerator()
+                    preProcess1AddTime += exponentialRandomGenerator(LAMBDA1);
+                }
+                if(preProcess2AddTime<=0){
+                    preProcessServer1.addWork(new Work(exponentialRandomGenerator(MU2)));
+                    preProcess2AddTime += exponentialRandomGenerator(LAMBDA2);
                 }
             }
         }
