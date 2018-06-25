@@ -33,6 +33,9 @@ public class RandomServer extends Server {
     }
     @Override
     public double getFirstDoneTime(){
+        if (workList.size() <= 0){
+            return Double.MAX_VALUE;
+        }
         return workList.get(0).getLength();
     }
 
