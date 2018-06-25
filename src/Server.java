@@ -4,24 +4,42 @@ import java.util.ArrayList;
  * Created by ali on 6/25/18.
  */
 public abstract class Server {
-    protected ArrayList<Work> workList = new ArrayList<>();
-    protected int mu;
-    protected int capacity;
-    protected int workCount = 0;
-    protected int workCompleted = 0;
+    ArrayList<Work> workList = new ArrayList<>();
+    private int mu;
+    int capacity;
+    int workCount = 0;
+    int workCompleted= 0;
 
     Server(int mu, int capacity) {
         this.mu = mu;
         this.capacity = capacity;
     }
 
-    abstract void doWork();
+    abstract int doWork(double time);
 
     public int getMu() {
         return mu;
     }
 
-    abstract public boolean addWork(Work work);
+    public boolean addWork(Work work){
+        if (workList.size() >= capacity){
+            return false;
+        } else {
+            workList.add(work);
+            workCount ++;
+            return true;
+        }
+    }
+
+    public double getFirstDoneTime(){
+        double answer = Double.MAX_VALUE;
+        for (int i = 0; i < workList.size(); i++) {
+            if (workList.get(i).getTime() < answer){
+                answer = workList.get(i).getTime();
+            }
+        }
+        return answer;
+    }
 
     public void setMu(int mu) {
         this.mu = mu;

@@ -6,7 +6,14 @@ public class RandomServer extends Server {
         super(mu, capacity);
     }
     @Override
-    void doWork() {
+    int doWork() {
         //TODO
+        return 0;
     }
+
+    @Override
+    public boolean addWork(Work work) {
+        return false;
+    }
+
 }
