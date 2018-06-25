@@ -8,12 +8,16 @@ public class SRJFServer extends Server {
     }
 
     @Override
-    int doWork() {
+    int doWork(double time) {
         int numOfDone = 0;
-        double remainingTime = workList.get(0).getTime() - 1.0;
+        double remainingTime = workList.get(0).getTime() - time;
         while (remainingTime < 0.0){
+            workList.remove(0);
+            numOfDone++;
+            remainingTime += workList.get(0).getTime();
         }
-        return 0;
+        workList.get(0).setTime(remainingTime);
+        return numOfDone;
     }
 
     @Override

@@ -2,14 +2,14 @@
  * Created by ali on 6/25/18.
  */
 public class PSServer extends Server {
-    public PSServer(int mu, int capacity) {
+    PSServer(int mu, int capacity) {
         super(mu, capacity);
     }
 
     @Override
-    int doWork() {
-        double reduceAmount = 1 / workList.size();
-        double remainingTime = 0.0;
+    int doWork(double time) {
+        double reduceAmount = time / workList.size();
+        double remainingTime;
         int numOfDone = 0;
         for (Work aWorkList : workList) {
             remainingTime = aWorkList.getTime() - reduceAmount;
@@ -24,8 +24,5 @@ public class PSServer extends Server {
         return numOfDone;
     }
 
-    @Override
-    public boolean addWork(Work work) {
-        return false;
-    }
+
 }
