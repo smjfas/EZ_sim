@@ -8,8 +8,12 @@ public class SRJFServer extends Server {
     }
 
     @Override
-    void doWork() {
-
+    int doWork() {
+        int numOfDone = 0;
+        double remainingTime = workList.get(0).getTime() - 1.0;
+        while (remainingTime < 0.0){
+        }
+        return 0;
     }
 
     @Override
@@ -18,8 +22,15 @@ public class SRJFServer extends Server {
             return false;
         } else {
             for (int i = 0; i < workList.size(); i++) {
-                
+                // Keep the tasks sorted
+                if (workList.get(i).getTime() >= work.getTime()){
+                    workList.add(i, work);
+                    return true;
+                }
             }
+            // Task is bigger than all the others.
+            workList.add(work);
+            return true;
         }
     }
 }

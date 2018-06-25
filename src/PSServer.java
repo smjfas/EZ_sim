@@ -7,7 +7,20 @@ public class PSServer extends Server {
     }
 
     @Override
-    void doWork() {
-
+    int doWork() {
+        double reduceAmount = 1 / workList.size();
+        double remainingTime = 0.0;
+        int numOfDone = 0;
+        for (Work aWorkList : workList) {
+            remainingTime = aWorkList.getTime() - reduceAmount;
+            aWorkList.setTime(remainingTime);
+        }
+        for (int i = workList.size() - 1; i >=0 ; i--) {
+            if (workList.get(i).getTime() <= 0.0){
+                workList.remove(i);
+                numOfDone ++;
+            }
+        }
+        return numOfDone;
     }
 }

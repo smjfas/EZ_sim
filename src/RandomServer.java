@@ -9,4 +9,5 @@ public class RandomServer extends Server {
     void doWork() {
         //TODO
     }
+
 }
