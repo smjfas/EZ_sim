@@ -10,4 +10,9 @@ public class FCFSServer extends Server {
     int doWork() {
         return 0;
     }
+
+    @Override
+    public boolean addWork(Work work) {
+        return false;
+    }
 }

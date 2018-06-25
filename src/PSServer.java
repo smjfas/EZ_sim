@@ -23,4 +23,9 @@ public class PSServer extends Server {
         }
         return numOfDone;
     }
+
+    @Override
+    public boolean addWork(Work work) {
+        return false;
+    }
 }
