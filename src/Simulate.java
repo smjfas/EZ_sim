@@ -67,6 +67,11 @@ public class Simulate {
                 }
             }
             double PB1 = preProcessServer1.getWorkCompleted() / (double) preProcessServer2.getWorkCount();
+            double LQ1 = preProcessServer1.getIntegral() / time;
+            double WQ1 = preProcessServer1.getIntegral() / (double) preProcessServer1.getWorkCompleted();
+            double PB3 = mainProcessServer.getWorkCompleted() / (double) mainProcessServer.getWorkCount();
+            double TTotal = TTotalSum / time;
+            double LQ3 = mainProcessServer.getIntegral() / time;
         }
     }
 
