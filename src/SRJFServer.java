@@ -35,20 +35,21 @@ public class SRJFServer extends Server {
 
     @Override
     public boolean addWork(Work work) {
-        if (workList.size() >= capacity){
+        workCount++;
+        if (workList.size() >= capacity)
             return false;
-        } else {
-            for (int i = 0; i < workList.size(); i++) {
-                // Keep the tasks sorted
-                if (workList.get(i).getLength() >= work.getLength()){
-                    workList.add(i, work);
-                    return true;
-                }
+
+        for (int i = 0; i < workList.size(); i++) {
+            // Keep the tasks sorted
+            if (workList.get(i).getLength() >= work.getLength()){
+                workList.add(i, work);
+                return true;
             }
-            // Task is bigger than all the others.
-            workList.add(work);
-            return true;
         }
+        // Task is bigger than all the others.
+        workList.add(work);
+        return true;
+
     }
 
     @Override

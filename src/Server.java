@@ -32,13 +32,11 @@ public abstract class Server {
     }
 
     public boolean addWork(Work work){
-        if (workList.size() >= capacity){
+        workCount ++;
+        if (workList.size() >= capacity)
             return false;
-        } else {
-            workList.add(work);
-            workCount ++;
-            return true;
-        }
+        workList.add(work);
+        return true;
     }
 
     abstract public double getFirstDoneTime();

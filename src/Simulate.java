@@ -31,6 +31,7 @@ public class Simulate {
             Server mainProcessServer = new PSServer(MU3, k3);
             //WARMUP PHASE
             while (mainProcessServer.getWorkCompleted()<SECONDPHASETHRESHOLD){
+                System.out.println(mainProcessServer.getWorkCompleted());
                 if(isWarmup && mainProcessServer.getWorkCompleted() > FIRSTPHASETHRESHOLD){
                     isWarmup = false;
                     mainStart = time;
