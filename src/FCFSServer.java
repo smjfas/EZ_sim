@@ -10,16 +10,26 @@ public class FCFSServer extends Server {
 
     @Override
     ArrayList<Work> doWork(double time) {
-        return null;
-    }
-
-    @Override
-    public boolean addWork(Work work) {
-        return false;
+        addIntegral(time);
+        ArrayList<Work> done = new ArrayList<>();
+        while (time > 0 && workList.size()>0){
+            Work tempWork = workList.get(0);
+            if(tempWork.getLength() <= time){
+                time -= tempWork.getLength();
+                workList.remove(0);
+                done.add(tempWork);
+            }
+            else{
+                tempWork.setLength(tempWork.getLength() - time);
+                time = 0;
+            }
+        }
+        workCompleted += done.size();
+        return done;
     }
 
     @Override
     public double getFirstDoneTime() {
-        return 0;
+        return workList.get(0).getLength();
     }
 }
