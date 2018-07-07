@@ -19,7 +19,7 @@ public class SRJFServer extends Server {
         Work temp;
         double remainingTime = workList.get(0).getLength() - time;
 
-        while (remainingTime < 0.0){
+        while (remainingTime <= 0.0){
             temp = workList.remove(0);
             done.add(temp);
             if (workList.size() <= 0){
