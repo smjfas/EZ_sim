@@ -10,11 +10,11 @@ public class Simulate {
     public static final int K2 = 12;
     public static final int K3MIN = 8;
     public static final int K3MAX = 16;
-    public static final int FIRSTPHASETHRESHOLD = 5000;
-    public static final int SECONDPHASETHRESHOLD = 50005000;
+    public static final int FIRSTPHASETHRESHOLD = 500;
+    public static final int SECONDPHASETHRESHOLD = 500500;
     public static final double PRECISIONTHRESHOLD = 0.05;
 
-    public static final int MAXITERATION = 50;
+    public static final int MAXITERATION = 2;
 
     public static double exponentialRandomGenerator(int lambda){
         return -1 * (Math.log(1- Math.random()) / lambda);
@@ -58,7 +58,7 @@ public class Simulate {
         int PB1R = 0, LQ1R = 0, WQ1R = 0, PB3R = 0, TTotalR = 0, LQ3R = 0;
         double PB1Precision = 0, LQ1Precision = 0, WQ1Precision = 0, PB3Precision = 0, TTotalPrecision = 0, LQ3Precision = 0;
         double PB1Mean = 0, LQ1Mean = 0, WQ1Mean = 0, PB3Mean = 0, TTotalMean = 0, LQ3Mean = 0;
-        for (int R = 1; R < MAXITERATION; R++) {
+        for (int R = 1; R <= MAXITERATION; R++) {
             double time = 0, mainStart = 0;
             double TTotalSum = 0;
             double preProcess1AddTime = exponentialRandomGenerator(LAMBDA1);

@@ -39,6 +39,9 @@ public class PSServer extends Server {
 
     @Override
     public double getFirstDoneTime(){
+        if (workList.size() <= 0){
+            return Double.MAX_VALUE;
+        }
         double answer = Double.MAX_VALUE;
         for (int i = 0; i < workList.size(); i++) {
             if (workList.get(i).getLength() < answer){
