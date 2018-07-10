@@ -10,11 +10,11 @@ public class Simulate {
     public static final int K2 = 12;
     public static final int K3MIN = 8;
     public static final int K3MAX = 16;
-    public static final int FIRSTPHASETHRESHOLD = 500;
-    public static final int SECONDPHASETHRESHOLD = 500500;
+    public static final int FIRSTPHASETHRESHOLD = 5000;
+    public static final int SECONDPHASETHRESHOLD = 50005000;
     public static final double PRECISIONTHRESHOLD = 0.05;
 
-    public static final int MAXITERATION = 2;
+    public static final int MAXITERATION = 10;
 
     public static double exponentialRandomGenerator(int lambda){
         return -1 * (Math.log(1- Math.random()) / lambda);
@@ -115,7 +115,7 @@ public class Simulate {
             time -= mainStart;
             PB1.add(1 - preProcessServer1.getWorkCompleted() / (double) preProcessServer1.getWorkCount());
             LQ1.add((preProcessServer1.getIntegral() - preProcessServer1.getServiceIntegral()) / time);
-            WQ1.add((preProcessServer1.getIntegral() - preProcessServer1.getServiceIntegral()) / (double) preProcessServer1.getWorkCompleted());
+            WQ1.add((preProcessServer1.getIntegral() - preProcessServer1.getServiceIntegral()) / (double) preProcessServer1.getWorkCount());
             PB3.add(1 - mainProcessServer.getWorkCompleted() / (double) mainProcessServer.getWorkCount());
             TTotal.add(TTotalSum / time);
             LQ3.add(mainProcessServer.getIntegral() / time);
