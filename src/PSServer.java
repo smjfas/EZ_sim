@@ -11,11 +11,11 @@ public class PSServer extends Server {
     @Override
     ArrayList<Work> doWork(double time) {
         addIntegral(time);
-        serviceIntegral += time;
         ArrayList<Work> done = new ArrayList<>();
         if (workList.size() <= 0){
             return done;
         }
+        serviceIntegral += time;
         double reduceAmount = time / workList.size();
         double remainingTime;
         Work temp;

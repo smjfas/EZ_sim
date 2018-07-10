@@ -11,8 +11,11 @@ public class FCFSServer extends Server {
     @Override
     ArrayList<Work> doWork(double time) {
         addIntegral(time);
-        serviceIntegral += time;
         ArrayList<Work> done = new ArrayList<>();
+        if (workList.size() <= 0){
+            return done;
+        }
+        serviceIntegral += time;
         while (time > 0 && workList.size()>0){
             Work tempWork = workList.get(0);
             if(tempWork.getLength() <= time){

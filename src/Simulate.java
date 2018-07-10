@@ -77,7 +77,7 @@ public class Simulate {
                     mainProcessServer.resetStatistics();
                 }
                 //Calculate timeStep
-                double timeStep = Math.min(Math.min(preProcess1AddTime, preProcess2AddTime), Math.min(preProcessServer1.getFirstDoneTime(), preProcessServer2.getFirstDoneTime()));
+                double timeStep = Math.min(Math.min(Math.min(preProcess1AddTime, preProcess2AddTime), Math.min(preProcessServer1.getFirstDoneTime(), preProcessServer2.getFirstDoneTime())), mainProcessServer.getFirstDoneTime());
 
                 //Do work
                 ArrayList<Work> finished1 = preProcessServer1.doWork(timeStep);
