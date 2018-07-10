@@ -10,11 +10,11 @@ public class Simulate {
     public static final int K2 = 12;
     public static final int K3MIN = 8;
     public static final int K3MAX = 16;
-    public static final int FIRSTPHASETHRESHOLD = 5000;
-    public static final int SECONDPHASETHRESHOLD = 50005000;
+    public static final int FIRSTPHASETHRESHOLD = 500;
+    public static final int SECONDPHASETHRESHOLD = 500500;
     public static final double PRECISIONTHRESHOLD = 0.05;
 
-    public static final int MAXITERATION = 50;
+    public static final int MAXITERATION = 2    ;
 
     public static double exponentialRandomGenerator(int lambda){
         return -1 * (Math.log(1- Math.random()) / lambda);
