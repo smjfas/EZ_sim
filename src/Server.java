@@ -9,7 +9,8 @@ public abstract class Server {
     int capacity;
     int workCount = 0;
     int workCompleted= 0;
-    double integral;
+    double integral = 0;
+    double serviceIntegral = 0;
 
 
     public double getIntegral() {
@@ -33,6 +34,7 @@ public abstract class Server {
 
     public boolean addWork(Work work){
         workCount ++;
+        serviceIntegral += work.getLength();
         if (workList.size() >= capacity)
             return false;
         workList.add(work);
@@ -57,5 +59,9 @@ public abstract class Server {
         workCount = 0;
         workCompleted = 0;
         integral = 0.0;
+    }
+
+    public double getServiceIntegral() {
+        return serviceIntegral;
     }
 }

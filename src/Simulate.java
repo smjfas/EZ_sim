@@ -114,9 +114,9 @@ public class Simulate {
             }
             time -= mainStart;
             PB1.add(1 - preProcessServer1.getWorkCompleted() / (double) preProcessServer1.getWorkCount());
-            LQ1.add(preProcessServer1.getIntegral() / time);
-            WQ1.add(preProcessServer1.getIntegral() / (double) preProcessServer1.getWorkCompleted());
-            PB3.add(mainProcessServer.getWorkCompleted() / (double) mainProcessServer.getWorkCount());
+            LQ1.add((preProcessServer1.getIntegral() - preProcessServer1.getServiceIntegral()) / time);
+            WQ1.add((preProcessServer1.getIntegral() - preProcessServer1.getServiceIntegral()) / (double) preProcessServer1.getWorkCompleted());
+            PB3.add(1 - mainProcessServer.getWorkCompleted() / (double) mainProcessServer.getWorkCount());
             TTotal.add(TTotalSum / time);
             LQ3.add(mainProcessServer.getIntegral() / time);
             if(!PB1Finished && computePrecision(PB1, R)< PRECISIONTHRESHOLD){
