@@ -11,7 +11,7 @@ public class Simulate {
     public static final int K3MIN = 8;
     public static final int K3MAX = 16;
     public static final int FIRSTPHASETHRESHOLD = 5000;
-    public static final int SECONDPHASETHRESHOLD = 505000;
+    public static final int SECONDPHASETHRESHOLD = 5005000;
     public static final double PRECISIONTHRESHOLD = 0.05;
 
     public static final int MAXITERATION = 10;
