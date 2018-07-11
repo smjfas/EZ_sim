@@ -34,7 +34,6 @@ public abstract class Server {
 
     public boolean addWork(Work work){
         workCount ++;
-        serviceIntegral += work.getLength();
         if (workList.size() >= capacity)
             return false;
         workList.add(work);
@@ -59,6 +58,7 @@ public abstract class Server {
         workCount = 0;
         workCompleted = 0;
         integral = 0.0;
+        serviceIntegral = 0.0;
     }
 
     public double getServiceIntegral() {

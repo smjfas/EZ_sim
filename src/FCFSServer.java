@@ -34,10 +34,9 @@ public class FCFSServer extends Server {
 
     @Override
     public double getFirstDoneTime() {
-        double answer = Double.MAX_VALUE;
-        if (workList.get(0) != null && workList.get(0).getLength() < answer){
-            answer = workList.get(0).getLength();
+        if (workList.size() <= 0){
+            return Double.MAX_VALUE;
         }
-        return answer;
+        return workList.get(0).getLength();
     }
 }

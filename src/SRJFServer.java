@@ -37,7 +37,6 @@ public class SRJFServer extends Server {
     @Override
     public boolean addWork(Work work) {
         workCount++;
-        serviceIntegral += work.getLength();
         if (workList.size() >= capacity)
             return false;
 

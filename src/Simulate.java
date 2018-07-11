@@ -11,7 +11,7 @@ public class Simulate {
     public static final int K3MIN = 8;
     public static final int K3MAX = 16;
     public static final int FIRSTPHASETHRESHOLD = 5000;
-    public static final int SECONDPHASETHRESHOLD = 50005000;
+    public static final int SECONDPHASETHRESHOLD = 505000;
     public static final double PRECISIONTHRESHOLD = 0.05;
 
     public static final int MAXITERATION = 10;
@@ -64,8 +64,8 @@ public class Simulate {
             double preProcess1AddTime = exponentialRandomGenerator(LAMBDA1);
             double preProcess2AddTime = exponentialRandomGenerator(LAMBDA2);
             boolean isWarmup = true;
-            Server preProcessServer1 = new SRJFServer(MU1, K1);
-            Server preProcessServer2 = new RandomServer(MU2, K2);
+            Server preProcessServer1 = new SRJFServer(MU1, K1 + 1);
+            Server preProcessServer2 = new RandomServer(MU2, K2 + 1);
             Server mainProcessServer = new PSServer(MU3, k3);
             //WARMUP PHASE
             while (mainProcessServer.getWorkCompleted()<SECONDPHASETHRESHOLD){
@@ -117,8 +117,8 @@ public class Simulate {
             LQ1.add((preProcessServer1.getIntegral() - preProcessServer1.getServiceIntegral()) / time);
             WQ1.add((preProcessServer1.getIntegral() - preProcessServer1.getServiceIntegral()) / (double) preProcessServer1.getWorkCount());
             PB3.add(1 - mainProcessServer.getWorkCompleted() / (double) mainProcessServer.getWorkCount());
-            TTotal.add(TTotalSum / time);
-            LQ3.add(mainProcessServer.getIntegral() / time);
+            TTotal.add(TTotalSum / (SECONDPHASETHRESHOLD-FIRSTPHASETHRESHOLD));
+            LQ3.add((mainProcessServer.getIntegral() - mainProcessServer.getServiceIntegral()) / time);
             if(!PB1Finished && computePrecision(PB1, R)< PRECISIONTHRESHOLD){
                 PB1Finished = true;
                 PB1Precision = computePrecision(PB1, R);
@@ -240,6 +240,13 @@ public class Simulate {
         System.out.println("Sample Mean: " + LQ3Mean);
         System.out.println("Min R: " + LQ3R);
         System.out.println("Precision: " + LQ3Precision);
+
+        System.out.println("---------------------------------");
+
+
+        System.out.println("Results for K3 = " + k3 + ":\n");
+        System.out.println(PB1Mean + "\t" + LQ1Mean + "\t" + WQ1Mean + "\t" + PB3Mean + "\t" + TTotalMean + "\t" + LQ3Mean);
+        System.out.println(PB1Precision + "\t" + LQ1Precision + "\t" + WQ1Precision + "\t" + PB3Precision + "\t" + TTotalPrecision + "\t" + LQ3Precision);
 
         System.out.println("---------------------------------");
     }
